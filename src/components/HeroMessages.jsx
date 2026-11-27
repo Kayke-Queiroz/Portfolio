@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useScrollShow } from "../hooks/useScrollShow";
 import { useLanguage } from "../context/LanguageContext";
 
@@ -7,8 +8,24 @@ export default function HeroMessages() {
     // Stop showing IMMEDIATELY after Frame 168 (~200vh). 
     // 2.05 gives a tiny buffer so it doesn't flicker during the lock itself.
     const showEnd = useScrollShow(2.05);
+    const [instantBypass, setInstantBypass] = useState(false);
 
-    const isVisible = showStart && !showEnd;
+    useEffect(() => {
+        const onBypass = () => setInstantBypass(true);
+        const onScroll = () => {
+            if (window.scrollY < window.innerHeight * 1.5) {
+                setInstantBypass(false);
+            }
+        };
+        window.addEventListener("navBypassFrames", onBypass);
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => {
+            window.removeEventListener("navBypassFrames", onBypass);
+            window.removeEventListener("scroll", onScroll);
+        };
+    }, []);
+
+    const isVisible = !instantBypass && showStart && !showEnd;
     const { t } = useLanguage();
 
     return (
@@ -16,7 +33,7 @@ export default function HeroMessages() {
             className={`
         fixed inset-0 z-hero pointer-events-none
         flex flex-col justify-end md:justify-center px-6 md:px-20 pb-32 md:pb-0
-        transition-all duration-1000 ease-out
+        ${instantBypass ? "transition-none" : "transition-all duration-1000 ease-out"}
         ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}
 `}
         >

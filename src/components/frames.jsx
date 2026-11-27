@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import { useLanguage } from '../context/LanguageContext';
 
 const SCROLL_HEIGHT_MULTIPLIER = 2; // 200vh
 const END_THRESHOLD = 0.99;
@@ -8,13 +7,60 @@ const RESET_BELOW = 0.8; // se voltar muito, reseta o "travamento" final
 
 const Frames = () => {
   const canvasRef = useRef(null);
+  const bypassRef = useRef(false);
+  const autoAnimatingRef = useRef(false);
+  const lockTimerRef = useRef(null);
+
   const [frames, setFrames] = useState([]);
   const [scrollPercent, setScrollPercent] = useState(0);
   const [hasReachedEnd, setHasReachedEnd] = useState(false);
   const [isScrollLocked, setIsScrollLocked] = useState(false);
   const [lockScrollY, setLockScrollY] = useState(0);
-  const [imagesLoaded, setImagesLoaded] = useState(false);
-  const { t } = useLanguage();
+  const [isBypassed, setIsBypassed] = useState(false);
+
+  // ===============================
+  // LISTENER DE SALTO DIRETO PELO HEADER
+  // ===============================
+  useEffect(() => {
+    const handleBypass = () => {
+      bypassRef.current = true;
+      if (lockTimerRef.current) {
+        clearTimeout(lockTimerRef.current);
+        lockTimerRef.current = null;
+      }
+      setIsBypassed(true);
+      setIsScrollLocked(false);
+      setHasReachedEnd(true);
+      setScrollPercent(1);
+    };
+
+    const handleStartAutoAnim = () => {
+      bypassRef.current = false;
+      autoAnimatingRef.current = true;
+      if (lockTimerRef.current) {
+        clearTimeout(lockTimerRef.current);
+        lockTimerRef.current = null;
+      }
+      setIsBypassed(false);
+      setIsScrollLocked(false);
+    };
+
+    const handleEndAutoAnim = () => {
+      autoAnimatingRef.current = false;
+    };
+
+    window.addEventListener('navBypassFrames', handleBypass);
+    window.addEventListener('navStartHeroAnimation', handleStartAutoAnim);
+    window.addEventListener('navEndHeroAnimation', handleEndAutoAnim);
+    return () => {
+      window.removeEventListener('navBypassFrames', handleBypass);
+      window.removeEventListener('navStartHeroAnimation', handleStartAutoAnim);
+      window.removeEventListener('navEndHeroAnimation', handleEndAutoAnim);
+      if (lockTimerRef.current) {
+        clearTimeout(lockTimerRef.current);
+      }
+    };
+  }, []);
 
   // ===============================
   // CARREGAMENTO DAS IMAGENS (BATCHED)
@@ -38,24 +84,22 @@ const Frames = () => {
       const firstImage = new Image();
       firstImage.src = imageUrls[0];
       firstImage.onload = () => {
-        setFrames([firstImage]); // Mostra o primeiro frame
+        setFrames((prev) => (prev.length > 1 ? prev : [firstImage]));
       };
 
-      // Deferir o carregamento em massa do resto do vídeo por 100ms
-      // para aproveitar o tempo em que a tela de Loading está rodando 
-      // e não atrasar o restante da página (já que Loading agora é overlay)
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 100));
 
-      // B. Carregar todos (incluindo o primeiro novamente, não tem problema, cache resolve) em background
+      // B. Carregar todos os frames em background
       const BATCH_SIZE = 20;
       const loaded = new Array(imageUrls.length);
 
-      const loadImage = (url) => new Promise((resolve) => {
-        const img = new Image();
-        img.src = url;
-        img.onload = () => resolve(img);
-        img.onerror = () => resolve(null);
-      });
+      const loadImage = (url) =>
+        new Promise((resolve) => {
+          const img = new Image();
+          img.src = url;
+          img.onload = () => resolve(img);
+          img.onerror = () => resolve(null);
+        });
 
       for (let i = 0; i < imageUrls.length; i += BATCH_SIZE) {
         const batch = imageUrls.slice(i, i + BATCH_SIZE);
@@ -65,13 +109,11 @@ const Frames = () => {
           if (img) loaded[i + idx] = img;
         });
 
-        // Let the event loop breathe, but without artificial delay
-        await new Promise(resolve => setTimeout(resolve, 0));
+        await new Promise((resolve) => setTimeout(resolve, 0));
       }
 
       const validImages = loaded.filter(Boolean);
-      setFrames(validImages); // Substitui o frame inicial pelo array completo quando pronto
-      setImagesLoaded(true);
+      setFrames(validImages);
     };
 
     loadImages();
@@ -88,41 +130,56 @@ const Frames = () => {
         requestAnimationFrame(() => {
           const totalScrollHeight = SCROLL_HEIGHT_MULTIPLIER * window.innerHeight;
           const scrollTop = window.scrollY;
+          const rawPercent = Math.min(1, Math.max(0, scrollTop / totalScrollHeight));
 
-          // enquanto estiver travado, mantém a posição e não atualiza animação
+          // Verifica se o usuário clicou em algum botão de navegação rápida
+          if (sessionStorage.getItem('skipFramesLock') === 'true') {
+            sessionStorage.removeItem('skipFramesLock');
+            bypassRef.current = true;
+            setIsBypassed(true);
+            setIsScrollLocked(false);
+          }
+
+          if (bypassRef.current) {
+            // Se o usuário voltou manualmente lá para o topo do site, reativa a animação
+            if (rawPercent < RESET_BELOW) {
+              bypassRef.current = false;
+              setIsBypassed(false);
+              setHasReachedEnd(false);
+              setScrollPercent(rawPercent);
+            } else {
+              setHasReachedEnd(true);
+              setScrollPercent(1);
+            }
+            ticking = false;
+            return;
+          }
+
+          // Enquanto estiver travado no final normal da animação, mantém a posição
           if (isScrollLocked) {
             window.scrollTo({ top: lockScrollY, behavior: 'instant' });
             ticking = false;
             return;
           }
 
-          const rawPercent = Math.min(1, Math.max(0, scrollTop / totalScrollHeight));
-
           const wasAtEnd = hasReachedEnd;
           let nextHasReachedEnd = hasReachedEnd;
 
-          // se o usuário voltar bastante, libera para repetir a animação
           if (nextHasReachedEnd && rawPercent < RESET_BELOW) {
             nextHasReachedEnd = false;
           }
 
-          // se ainda não tinha chegado no fim e agora passou do threshold, arma o "travamento"
           const becomingEndNow = !nextHasReachedEnd && rawPercent >= END_THRESHOLD;
 
           if (becomingEndNow) {
             nextHasReachedEnd = true;
-
-            // Verifica se o usuário clicou num link do Navbar para pular a animação
-            const isBypassing = sessionStorage.getItem('skipFramesLock') === 'true';
-
-            if (isBypassing) {
-              sessionStorage.removeItem('skipFramesLock');
-            } else {
-              // trava o scroll por ~1s na posição atual normalmente
+            if (!autoAnimatingRef.current) {
               setIsScrollLocked(true);
               setLockScrollY(scrollTop);
-              setTimeout(() => {
+              if (lockTimerRef.current) clearTimeout(lockTimerRef.current);
+              lockTimerRef.current = setTimeout(() => {
                 setIsScrollLocked(false);
+                lockTimerRef.current = null;
               }, 1000);
             }
           }
@@ -132,19 +189,15 @@ const Frames = () => {
           }
 
           const stickyEnd = END_THRESHOLD + STICKY_EXTRA_RANGE;
-          // só podemos "sair" depois de já ter travado antes (wasAtEnd)
           const canFinish = wasAtEnd && rawPercent >= stickyEnd;
 
           let effectivePercent;
 
           if (!nextHasReachedEnd) {
-            // ainda na animação normal
             effectivePercent = rawPercent;
           } else if (!canFinish) {
-            // chegou no fim, mas ainda não liberou para sair -> trava no último frame
             effectivePercent = END_THRESHOLD;
           } else {
-            // já estava travado e o usuário continuou descendo -> libera para sair
             effectivePercent = rawPercent;
           }
 
@@ -156,8 +209,6 @@ const Frames = () => {
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
-
-    // Trigger on mount and resize
     onScroll();
 
     return () => {
@@ -170,7 +221,7 @@ const Frames = () => {
   // ===============================
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas || frames.length === 0) return;
+    if (!canvas || frames.length === 0 || isBypassed) return;
 
     const ctx = canvas.getContext('2d');
 
@@ -195,7 +246,7 @@ const Frames = () => {
       ctx.clearRect(0, 0, cw, ch);
       ctx.drawImage(img, cx, cy, nw, nh);
     }
-  }, [frames, scrollPercent]);
+  }, [frames, scrollPercent, isBypassed]);
 
   // Resize handler for canvas
   useEffect(() => {
@@ -210,18 +261,17 @@ const Frames = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-
   const stickyEnd = END_THRESHOLD + STICKY_EXTRA_RANGE;
-  const isEnd = hasReachedEnd && scrollPercent >= stickyEnd && !isScrollLocked;
+  const isEnd = isBypassed || (hasReachedEnd && scrollPercent >= stickyEnd && !isScrollLocked);
 
   return (
     <>
-      {/* ===============================
-          FRAME FIXO (ANIMAÇÃO)
-      =============================== */}
+      {/* FRAME FIXO (ANIMAÇÃO) */}
       <div
-        className={`fixed top-0 left-0 w-full h-[100dvh] bg-black transition-opacity duration-300 z-overlay
-          ${isEnd ? 'opacity-0 pointer-events-none' : 'opacity-100'}
+        className={`fixed top-0 left-0 w-full h-[100dvh] bg-black z-overlay
+          ${isBypassed ? 'transition-none opacity-0 pointer-events-none' : 'transition-opacity duration-300'}
+          ${!isBypassed && isEnd ? 'opacity-0 pointer-events-none' : ''}
+          ${!isBypassed && !isEnd ? 'opacity-100' : ''}
           ${scrollPercent === 0 ? 'pointer-events-none' : ''}
         `}
       >
@@ -229,23 +279,12 @@ const Frames = () => {
           ref={canvasRef}
           className="w-full h-full block"
         />
-        {/* Loading text removed as per request (first frame is shown instead) */}
       </div>
 
-      {/* ===============================
-          SCROLL / PLACEHOLDER
-      =============================== */}
+      {/* SCROLL / PLACEHOLDER */}
       <div style={{ height: '200vh' }}>
-        {/* Último frame "congelado" via canvas se precisar, ou apenas espaço vazio */}
-        <div className="h-[100dvh] w-full">
-        </div>
-
-        {/* ===============================
-            CONTEÚDO DO SITE
-        =============================== */}
+        <div className="h-[100dvh] w-full" />
       </div>
-
-
     </>
   );
 };

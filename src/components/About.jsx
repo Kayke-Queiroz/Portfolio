@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import { jumpToSection } from '../utils/scrollToSection';
 
 const About = () => {
     const [offsetY, setOffsetY] = useState(0);
@@ -52,7 +53,7 @@ const About = () => {
                         <img
                             src="/assets/kayke.jpeg"
                             alt={t.about.imageAlt}
-                            className="w-full h-full object-cover transition-all duration-700"
+                            className="w-full h-full object-cover object-[56%_center] transition-all duration-700"
                         />
 
                         {/* Texto flutuante na imagem */}
@@ -112,7 +113,10 @@ const About = () => {
                     {/* Botão "Fun" / Link para Habilidades */}
                     <a
                         href="/#skills"
-                        onClick={() => sessionStorage.setItem('skipFramesLock', 'true')}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            jumpToSection('skills');
+                        }}
                         className="
               group inline-block relative px-8 py-3 bg-transparent overflow-hidden rounded-lg
               transition-all duration-300

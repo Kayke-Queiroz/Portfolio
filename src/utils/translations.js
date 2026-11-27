@@ -2,6 +2,8 @@ export const translations = {
     pt: {
         navbar: {
             curriculum: "Curriculo",
+            experience: "Experiência",
+            skills: "Habilidades",
             projects: "Projetos",
             contact: "Contato",
             github: "GitHub"
@@ -12,6 +14,7 @@ export const translations = {
             description: "Construo interfaces de alta performance e sistemas de automação inteligentes que transformam ideias em produtos digitais escaláveis.",
             viewProjects: "Curriculo",
             contactMe: "Contate-me",
+            animationBtn: "Animation",
             imageAlt: "Kayke Santos"
         },
         heroMessages: {
@@ -30,46 +33,67 @@ export const translations = {
             title: "Sobre Mim",
             identityVerified: "Identidade Verificada",
             devTag: "K. Santos // DEV",
-            p1: "Olá! Sou um desenvolvedor apaixonado por criar experiências digitais que unem design futurista e performance extrema.",
-            p2: "Minha jornada começou com a curiosidade de entender como as coisas funcionam por trás da tela. Hoje, transformo linhas de código em soluções visuais impactantes e sistemas de automação inteligentes. Quando não estou codando, estou explorando novas tecnologias de IA ou aprimorando meu setup.",
-            traits: ["Criativo", "Proativo", "Detalhista"],
+            p1: "Estudante de Engenharia de Software no IDP com especialização em Engenharia de IA e Desenvolvimento Full-Stack. Atualmente construindo agentes autônomos de LLM e automações de fluxos na MJV Technology & Innovation, com experiência internacional prévia desenvolvendo soluções de IA Generativa e OCR no PM Accelerator.",
+            p2: "Meu foco é transformar modelos complexos de IA em aplicações confiáveis e intuitivas utilizando Python, TypeScript, React e LangChain.",
+            traits: ["Engenharia de IA", "Full-Stack", "Agentes de LLM"],
             button: "Conheça minhas habilidades",
             imageAlt: "Sobre Mim"
         },
         projects: {
-            title: "Projetos Recentes",
-            subtitle: "Explore algumas das soluções que desenvolvi, variando de aplicações web complexas a automações inteligentes.",
+            title: "Projetos em Destaque",
+            subtitle: "Explore algumas das soluções que desenvolvi — clique em qualquer card para girar e navegar pelas telas do projeto.",
             status: {
-                dev: "Em Desenvolvimento",
-                done: "Concluído"
+                dev: "Em Construção",
+                done: "Concluído",
+                soon: "Em Breve"
             },
+            flipHint: "Clique para ver telas",
+            backToDetails: "Voltar aos detalhes",
+            expandImage: "Ampliar imagem",
             viewProject: "Ver Projeto",
             github: "GitHub",
             list: [
                 {
-                    id: 1,
-                    name: "Plataforma de Acervo de Livros",
-                    description: "Aplicação web interativa que integra a API do Google Books para buscar dados de livros em tempo real e utiliza o Firebase para armazenamento em nuvem e gerenciamento de usuários."
+                    id: "wonderword",
+                    name: "WonderWord AI",
+                    subtitle: "Tutor de Leitura com IA para Crianças (K–5)",
+                    description: "Plataforma educacional desenvolvida em equipe internacional que transforma atividades impressas em histórias interativas usando Vision AI (Anthropic Claude), modo karaokê com alinhamento de voz em tempo real (WhisperX), dicionário fonético infantil e painel analítico para pais."
                 },
                 {
-                    id: 2,
-                    name: "Portifolio Pessoal",
-                    description: "Este é o próprio portfólio que você está visualizando agora. Desenvolvido do zero com React e Tailwind CSS, com animações fluidas utilizando Framer Motion e deploy realizado na Vercel para alta performance e escalabilidade."
+                    id: "odsmonitor",
+                    name: "ODSMonitor",
+                    subtitle: "Monitoramento Legislativo Inteligente & ODS",
+                    description: "Plataforma mobile e web para acompanhar projetos de lei da Câmara e do Senado de forma didática, usando IA (Qwen 2.5-72B via Hugging Face) para classificá-los nos ODS da ONU (Agenda 2030) e traduzir o 'juridiquês' em resumos simples."
                 },
                 {
-                    id: 3,
-                    name: "Gerenciador de Filmes",
-                    description: "Aplicação full-stack desenvolvida para estudo, focada em organizar, explorar e gerenciar informações sobre filmes. A plataforma permite aos usuários criar contas, fazer login, pesquisar filmes, visualizar detalhes completos e manter uma coleção pessoal, integrando funcionalidades de frontend e backend para oferecer uma experiência interativa e segura."
+                    id: "smartweather",
+                    name: "SmartWeather",
+                    subtitle: "Inteligência Climática Full-Stack com IA",
+                    description: "Plataforma full-stack de inteligência meteorológica em interface glassmorphism com previsão de 5 dias, insights de saúde e atividades via Google Gemini 2.0 Flash, mapa interativo Leaflet, histórico CRUD exportável e tours 4K."
                 },
                 {
-                    id: 4,
-                    name: "Catálogo de Produtos",
-                    description: "Aplicação full-stack para gerenciamento de produtos. Inclui API REST, cache em Redis, interface web moderna, exportação de dados e testes automatizados. Usuários podem criar, atualizar, excluir e acompanhar produtos com dashboards e histórico de alterações."
+                    id: "smartmail",
+                    name: "SmartMail-n8n-AI",
+                    subtitle: "Automação Inteligente de E-mails com n8n & IA",
+                    description: "Sistema inteligente de automação para Gmail construído com n8n, OpenAI (GPT-4o-mini) e Google Workspace que classifica e aplica rótulos automaticamente, detecta e-mails prioritários, registra resumos com IA no Google Docs, cria rascunhos de resposta e mantém a caixa de entrada organizada."
                 },
                 {
-                    id: 5,
-                    name: "Aplicativo Mobile",
-                    description: "Em desenvolvimento: Aplicativo cross-platform criado com React Native e Expo focado em usabilidade móvel moderna e alta performance."
+                    id: "universe3d",
+                    name: "Singularity 3D Universe",
+                    subtitle: "Portfólio Espacial Interativo em 3D",
+                    description: "Universo cósmico 3D interativo em desenvolvimento com Three.js e WebGL, apresentando buraco negro em tempo real, Terra em órbita, espaçonaves, satélites, controle manual de voo em nave UFO e interface HUD futurista."
+                },
+                {
+                    id: "portfolio",
+                    name: "Portfólio Pessoal",
+                    subtitle: "Experiência Scrollytelling & Interativa",
+                    description: "Este próprio portfólio interativo, criado do zero com React 19, Tailwind CSS e Framer Motion, unindo scrollytelling em canvas, esfera 3D de habilidades, suporte bilíngue (PT/EN) e alta performance na Vercel."
+                },
+                {
+                    id: "books",
+                    name: "Acervo Digital de Livros",
+                    subtitle: "Busca em Tempo Real & Biblioteca na Nuvem",
+                    description: "Aplicação web interativa que integra a Google Books API para consulta de livros em tempo real e utiliza o Firebase para autenticação de usuários e gerenciamento de coleções na nuvem."
                 }
             ]
         },
@@ -99,14 +123,87 @@ export const translations = {
                 }
             ]
         },
+        experience: {
+            tag: "Carreira & Atuação",
+            title: "Experiência Profissional",
+            subtitle: "Atuação prática construindo agentes de IA, produtos generativos e aplicações web modernas.",
+            presentBadge: "Atual",
+            projectSpotlightLabel: "Produto em Destaque",
+            techLabel: "Tecnologias & Competências",
+            items: [
+                {
+                    id: "mjv",
+                    role: "Estagiário em Agentes de IA",
+                    company: "MJV Technology & Innovation",
+                    type: "Estágio",
+                    period: "Out 2026 – Presente",
+                    periodFull: "Out 2026 – Presente · 2 meses",
+                    location: "Remoto",
+                    current: true,
+                    summary: "Atuação no desenvolvimento de agentes inteligentes e soluções de IA Generativa, com foco em automação de processos corporativos e integração de ferramentas.",
+                    highlights: [
+                        "Desenvolvimento de agentes de IA baseados em Large Language Models (LLMs) e engenharia de prompts avançada.",
+                        "Integração de APIs e ferramentas externas para expandir as capacidades autônomas dos agentes.",
+                        "Construção de fluxos de execução (workflows) escaláveis para aplicações de IA Generativa.",
+                        "Testes, validação técnica e documentação estruturada de soluções de IA."
+                    ],
+                    skills: ["Python", "LLMs", "AI Agents", "LangChain", "API Integration", "Generative AI", "Prompt Engineering"]
+                },
+                {
+                    id: "pma",
+                    role: "AI Engineer Intern – AI/ML/GenAI Design & Development",
+                    company: "Product Manager Accelerator",
+                    type: "Estágio Internacional",
+                    period: "Jun 2026 – Ago 2026",
+                    periodFull: "Jun 2026 – Ago 2026 · 3 meses",
+                    location: "Estados Unidos · Remoto",
+                    current: false,
+                    award: "Tier 1 Awardee · Cohort 9",
+                    summary: "Atuação como Engenheiro de IA em uma equipe internacional e multidisciplinar, colaborando remotamente com profissionais de diferentes países na criação de um produto educacional movido a IA.",
+                    featuredProject: {
+                        name: "WonderWord AI – AI Reading Coach for K–5 Kids",
+                        description: "Tutor de leitura com IA projetado para tornar a prática de leitura interativa e envolvente para crianças (K–5), transformando atividades escolares impressas em sessões de leitura interativas, histórias personalizadas, exercícios de vocabulário e relatórios de progresso."
+                    },
+                    highlights: [
+                        "Desenvolvimento e avaliação de soluções de OCR para extração de texto de imagens com Tesseract e modelos de visão com IA.",
+                        "Pesquisa de abordagens para elevar a precisão do OCR em cenários desafiadores (baixa iluminação, distorção e escrita manuscrita).",
+                        "Integração do Anthropic Claude (Haiku e Sonnet) para processamento e geração inteligente de textos e histórias.",
+                        "Criação de API Routes em Next.js e integração completa entre interfaces front-end e serviços back-end.",
+                        "Colaboração ativa em equipe global em discussões arquiteturais, planejamento de sprints e entregas iterativas."
+                    ],
+                    skills: ["Python", "Next.js", "FastAPI", "Anthropic Claude", "Tesseract OCR", "WhisperX", "STT", "Vision AI"]
+                },
+                {
+                    id: "hplus",
+                    role: "Estagiário Desenvolvedor Front-End",
+                    company: "Projeto Acadêmico (parceria Hplus)",
+                    type: "Estágio",
+                    period: "Mar 2025 – Jul 2025",
+                    periodFull: "Mar 2025 – Jul 2025 · 5 meses",
+                    location: "Remoto",
+                    current: false,
+                    summary: "Desenvolvimento de interfaces web responsivas a partir de protótipos no Figma, com foco em usabilidade, performance e experiência do usuário.",
+                    highlights: [
+                        "Implementação de telas interativas e responsivas utilizando HTML, CSS e JavaScript fielmente alinhadas ao design system.",
+                        "Integração das interfaces front-end com APIs REST para consumo e exibição de dados dinâmicos.",
+                        "Colaboração em equipe Ágil/Scrum, participando da organização de sprints, revisões e entrega contínua."
+                    ],
+                    skills: ["JavaScript", "HTML5", "CSS3", "Figma", "REST APIs", "Agile / Scrum", "UI/UX"]
+                }
+            ]
+        },
         skills: {
             title: "Habilidades",
+            subtitle: "Segure e arraste para girar a esfera • Clique em uma esfera para destacar",
+            selectedLabel: "Habilidade em Destaque",
+            clickPrompt: "Clique em qualquer bolinha para inspecionar a habilidade",
+            clearSelection: "Limpar destaque",
             categories: {
                 languages: "Linguagens",
-                frameworks: "Frameworks",
-                ai: "IA & Automação",
+                frameworks: "Frameworks & Backend",
+                ai: "IA & Agentes",
                 tools: "Ferramentas",
-                platforms: "Plataformas"
+                platforms: "Cloud, DB & Plataformas"
             }
         },
         certificates: {
@@ -128,6 +225,21 @@ export const translations = {
                 tools: "Ferramentas"
             },
             list: [
+                {
+                    id: 9,
+                    title: "Certified AI Engineer — AI PM Bootcamp",
+                    description: "Certificação conquistada após o desenvolvimento do WonderWord AI em equipe internacional, aplicando IA Generativa (Anthropic Claude Haiku & Sonnet), OCR com visão computacional e STT/alinhamento de voz (WhisperX)."
+                },
+                {
+                    id: 10,
+                    title: "Google AI Professional Certificate",
+                    description: "Formação de 7 cursos em IA aplicada e responsável: prompts colaborativos, análise de dados, pesquisa, automação de fluxos e criação de aplicações customizadas com IA Generativa e Machine Learning."
+                },
+                {
+                    id: 11,
+                    title: "Google Data Analytics Professional Certificate",
+                    description: "Especialização de 9 cursos em análise de dados de ponta a ponta: limpeza, organização, estatística, dashboards e storytelling utilizando SQL, Python, R (ggplot2), Tableau e planilhas."
+                },
                 {
                     id: 1,
                     title: "Git e GitHub: Controle e compartilhe seu código"
@@ -182,7 +294,7 @@ export const translations = {
         curriculum: {
             title: "Currículo",
             download: "Baixar Currículo",
-            filename: "Kayke_Santos_Curriculo.pdf"
+            filename: "Currículo - Kayke Queiroz dos Santos.pdf"
         },
         footer: {
             title: "Kayke Queiroz dos Santos",
@@ -194,6 +306,8 @@ export const translations = {
     en: {
         navbar: {
             curriculum: "Resume",
+            experience: "Experience",
+            skills: "Skills",
             projects: "Projects",
             contact: "Contact",
             github: "GitHub"
@@ -204,6 +318,7 @@ export const translations = {
             description: "I build high-performance interfaces and intelligent automation systems that transform ideas into scalable digital products.",
             viewProjects: "View Resume",
             contactMe: "Let's Work",
+            animationBtn: "Animation",
             imageAlt: "Kayke Santos"
         },
         heroMessages: {
@@ -222,46 +337,67 @@ export const translations = {
             title: "About Me",
             identityVerified: "Identity Verified",
             devTag: "K. Santos // DEV",
-            p1: "Hello! I am a developer passionate about creating digital experiences that combine futuristic design and extreme performance.",
-            p2: "My journey began with the curiosity to understand how things work behind the screen. Today, I turn lines of code into impactful visual solutions and intelligent automation systems. When I'm not coding, I'm exploring new AI technologies or improving my setup.",
-            traits: ["Creative", "Proactive", "Detail-oriented"],
+            p1: "Software Engineering student at IDP specializing in AI Engineering and Full-Stack Development. Currently building autonomous LLM agents and workflow automations at MJV Technology & Innovation, with previous international experience developing generative AI and OCR solutions at PM Accelerator.",
+            p2: "I focus on turning complex AI models into reliable, user-friendly applications using Python, TypeScript, React, and LangChain.",
+            traits: ["AI Engineering", "Full-Stack", "LLM Agents"],
             button: "See my skills",
             imageAlt: "About Me"
         },
         projects: {
-            title: "Recent Projects",
-            subtitle: "Explore some of the solutions I developed, ranging from complex web applications to intelligent automations.",
+            title: "Featured Projects",
+            subtitle: "Explore some of the solutions I've built — click any card to flip it and browse through the project screenshots.",
             status: {
-                dev: "In Development",
-                done: "Completed"
+                dev: "Under Construction",
+                done: "Completed",
+                soon: "Coming Soon"
             },
-            viewProject: "View Project",
+            flipHint: "Click to preview screens",
+            backToDetails: "Back to details",
+            expandImage: "Expand image",
+            viewProject: "Live Demo",
             github: "GitHub",
             list: [
                 {
-                    id: 1,
+                    id: "wonderword",
+                    name: "WonderWord AI",
+                    subtitle: "AI-Powered Reading Coach for K–5 Kids",
+                    description: "Educational platform built with an international cross-functional team that transforms printed worksheets into interactive stories using Vision AI (Anthropic Claude), real-time karaoke speech alignment (WhisperX), a phonics dictionary, and parent analytics."
+                },
+                {
+                    id: "odsmonitor",
+                    name: "ODSMonitor",
+                    subtitle: "Intelligent Legislative & UN SDG Monitor",
+                    description: "Mobile and web platform enabling citizens to track bills in Brazil's Congress, leveraging AI (Qwen 2.5-72B via Hugging Face) to classify legislation into UN Sustainable Development Goals (Agenda 2030) and simplify legal jargon into clear summaries."
+                },
+                {
+                    id: "smartweather",
+                    name: "SmartWeather",
+                    subtitle: "Full-Stack AI Weather Intelligence",
+                    description: "Full-stack weather intelligence platform in a glassmorphism UI featuring 5-day forecasts, AI health & activity insights via Google Gemini 2.0 Flash, interactive Leaflet maps, CRUD search history with CSV/JSON export, and 4K drone tours."
+                },
+                {
+                    id: "smartmail",
+                    name: "SmartMail-n8n-AI",
+                    subtitle: "Intelligent Email Automation with n8n & AI",
+                    description: "Intelligent Gmail automation workflow built with n8n, OpenAI (GPT-4o-mini), and Google Workspace that classifies and labels incoming messages, detects high-priority emails, logs AI summaries to Google Docs, drafts replies automatically, and keeps the inbox clean."
+                },
+                {
+                    id: "universe3d",
+                    name: "Singularity 3D Universe",
+                    subtitle: "Interactive 3D Deep-Space Portfolio",
+                    description: "Immersive 3D cosmic portfolio under active development with Three.js and WebGL, featuring a real-time black hole, orbiting Earth, spacecraft, satellites, pilotable UFO flight controls, and futuristic glassmorphic HUD panels."
+                },
+                {
+                    id: "portfolio",
+                    name: "Personal Portfolio",
+                    subtitle: "Interactive Scrollytelling Experience",
+                    description: "The interactive portfolio you are currently viewing, crafted from scratch with React 19, Tailwind CSS, and Framer Motion — combining canvas scrollytelling, a 3D interactive skills sphere, bilingual support, and Vercel deployment."
+                },
+                {
+                    id: "books",
                     name: "Book Collection Platform",
-                    description: "Interactive web application that integrates the Google Books API to fetch real-time book data and uses Firebase for cloud-based storage and user management."
-                },
-                {
-                    id: 2,
-                    name: "Personal Portfolio Website",
-                    description: "The very portfolio you are currently viewing. Designed and developed from scratch using React and Tailwind CSS, featuring smooth animations powered by Framer Motion and deployed on Vercel for performance and scalability."
-                },
-                {
-                    id: 3,
-                    name: "Movie Library Manager",
-                    description: "Full-stack application developed for study purposes, focused on organizing, exploring, and managing movie information. The platform allows users to create accounts, log in, search for films, view detailed data, and maintain a personal collection, integrating both frontend and backend features to provide a seamless and secure experience."
-                },
-                {
-                    id: 4,
-                    name: "Product Catalog",
-                    description: "Full-stack application for product management. Features REST API, Redis caching, modern web interface, data export, and automated testing. Users can create, update, delete, and track products using dashboards and change history."
-                },
-                {
-                    id: 5,
-                    name: "Mobile Application",
-                    description: "In development: A cross-platform app built with React Native and Expo focusing on modern mobile usability and high performance."
+                    subtitle: "Real-Time Book Search & Cloud Library",
+                    description: "Interactive web application integrating the Google Books API to fetch real-time book metadata and leveraging Firebase for cloud authentication and personal reading collections."
                 }
             ]
         },
@@ -291,14 +427,87 @@ export const translations = {
                 }
             ]
         },
+        experience: {
+            tag: "Career & Track Record",
+            title: "Professional Experience",
+            subtitle: "Hands-on experience building autonomous AI agents, generative AI products, and scalable web interfaces.",
+            presentBadge: "Present",
+            projectSpotlightLabel: "Featured Product",
+            techLabel: "Technologies & Skills",
+            items: [
+                {
+                    id: "mjv",
+                    role: "AI Agents Intern",
+                    company: "MJV Technology & Innovation",
+                    type: "Internship",
+                    period: "Oct 2026 – Present",
+                    periodFull: "Oct 2026 – Present · 2 mos",
+                    location: "Remote",
+                    current: true,
+                    summary: "Working on AI agent development and generative AI solutions, focusing on process automation and external tool integration.",
+                    highlights: [
+                        "Developing AI agents powered by Large Language Models (LLMs) and advanced prompt engineering.",
+                        "Integrating APIs and external tools to extend autonomous agent capabilities.",
+                        "Building execution workflows for production-oriented generative AI applications.",
+                        "Testing, validating, and documenting AI solutions and orchestration flows."
+                    ],
+                    skills: ["Python", "LLMs", "AI Agents", "LangChain", "API Integration", "Generative AI", "Prompt Engineering"]
+                },
+                {
+                    id: "pma",
+                    role: "AI Engineer Intern – AI/ML/GenAI Design & Development",
+                    company: "Product Manager Accelerator",
+                    type: "Internship",
+                    period: "Jun 2026 – Aug 2026",
+                    periodFull: "Jun 2026 – Aug 2026 · 3 mos",
+                    location: "United States · Remote",
+                    current: false,
+                    award: "Tier 1 Awardee · Cohort 9",
+                    summary: "Worked as an AI Engineer Intern in an international, multidisciplinary team, collaborating remotely with members from different countries to build an AI-powered educational product.",
+                    featuredProject: {
+                        name: "WonderWord AI – AI Reading Coach for K–5 Kids",
+                        description: "AI-powered reading coach designed to make reading practice interactive and engaging for K–5 students — transforming worksheets into interactive reading sessions, personalized stories, vocabulary activities, and progress reports."
+                    },
+                    highlights: [
+                        "Developed and evaluated OCR solutions for extracting text from images using Tesseract and AI-powered vision models.",
+                        "Researched approaches to improve OCR accuracy on challenging inputs including poor lighting, distortion, and handwritten content.",
+                        "Integrated Anthropic Claude (Haiku and Sonnet) for AI-powered text processing and personalized story generation.",
+                        "Developed Next.js API Routes and worked on end-to-end frontend/backend API integration.",
+                        "Collaborated in an international team, participating in technical discussions, project planning, and iterative delivery."
+                    ],
+                    skills: ["Python", "Next.js", "FastAPI", "Anthropic Claude", "Tesseract OCR", "WhisperX", "STT", "Vision AI"]
+                },
+                {
+                    id: "hplus",
+                    role: "Front-End Developer Intern",
+                    company: "Academic Project (in partnership with Hplus)",
+                    type: "Internship",
+                    period: "Mar 2025 – Jul 2025",
+                    periodFull: "Mar 2025 – Jul 2025 · 5 mos",
+                    location: "Remote",
+                    current: false,
+                    summary: "Developed responsive web interfaces based on Figma designs, focusing on usability, clean architecture, and user experience.",
+                    highlights: [
+                        "Implemented responsive application screens using HTML, CSS, and JavaScript faithful to Figma prototypes.",
+                        "Integrated frontend interfaces with REST APIs to handle and display dynamic data.",
+                        "Collaborated in an Agile/Scrum team, participating in sprint planning and continuous delivery."
+                    ],
+                    skills: ["JavaScript", "HTML5", "CSS3", "Figma", "REST APIs", "Agile / Scrum", "UI/UX"]
+                }
+            ]
+        },
         skills: {
             title: "Tech Skills",
+            subtitle: "Hold and drag to spin the sphere • Click any orb to highlight",
+            selectedLabel: "Highlighted Skill",
+            clickPrompt: "Click any orb on the sphere to inspect the skill",
+            clearSelection: "Clear highlight",
             categories: {
                 languages: "Languages",
-                frameworks: "Frameworks",
-                ai: "AI & Automation",
+                frameworks: "Frameworks & Backend",
+                ai: "AI & Agents",
                 tools: "Tools",
-                platforms: "Platforms"
+                platforms: "Cloud, DB & Platforms"
             }
         },
         certificates: {
@@ -320,6 +529,21 @@ export const translations = {
                 tools: "Tools"
             },
             list: [
+                {
+                    id: 9,
+                    title: "Certified AI Engineer — AI PM Bootcamp",
+                    description: "Certification earned upon delivering WonderWord AI with an international team, applying Generative AI (Anthropic Claude Haiku & Sonnet), Vision OCR, real-time STT speech alignment (WhisperX), and production AI engineering."
+                },
+                {
+                    id: 10,
+                    title: "Google AI Professional Certificate",
+                    description: "7-course specialization in applied and responsible AI covering collaborative prompting, data wrangling, research, workflow automation, and building custom apps with Generative AI and Machine Learning."
+                },
+                {
+                    id: 11,
+                    title: "Google Data Analytics Professional Certificate",
+                    description: "9-course specialization in end-to-end data analytics covering data cleaning, statistical sampling, dashboards, and data storytelling using SQL, Python, R (ggplot2), Tableau, and spreadsheets."
+                },
                 {
                     id: 1,
                     title: "Git and GitHub: Control and share your code"
@@ -374,7 +598,7 @@ export const translations = {
         curriculum: {
             title: "Resume",
             download: "Download Resume",
-            filename: "Kayke_Santos_Resume.pdf"
+            filename: "Kayke_Resume.pdf"
         },
         footer: {
             title: "Kayke Queiroz dos Santos",

@@ -6,10 +6,12 @@ import Navbar from '../components/navbar'
 import HeroOverlay from '../components/HeroOverlay'
 import HeroMessages from '../components/HeroMessages'
 import BackgroundParticles from '../components/BackgroundParticles'
+import { jumpToSection } from '../utils/scrollToSection'
 
 // Lazy load components that are below the fold (avoids blocking initial render/download)
 const About = lazy(() => import('../components/About'))
 const Journey = lazy(() => import('../components/Journey'))
+const Experience = lazy(() => import('../components/Experience'))
 const Skills = lazy(() => import('../components/Skills'))
 const Certificates = lazy(() => import('../components/Certificates'))
 const Projects = lazy(() => import('../components/Projects'))
@@ -19,9 +21,21 @@ const Footer = lazy(() => import('../components/Footer'))
 const ENABLE_LOADING = true
 
 export default function Home() {
+    const [skipLoadingForJump] = useState(
+        () => Boolean(sessionStorage.getItem('pendingSectionJump'))
+    )
     const isLoading = useLoading(2000)
-    const shouldShowLoading = ENABLE_LOADING && isLoading
+    const shouldShowLoading = ENABLE_LOADING && isLoading && !skipLoadingForJump
     const [showParticles, setShowParticles] = useState(false)
+
+    // Executa salto direto caso venha da página /curriculo clicando em seção do Header
+    useEffect(() => {
+        const pendingSection = sessionStorage.getItem('pendingSectionJump')
+        if (pendingSection) {
+            sessionStorage.removeItem('pendingSectionJump')
+            jumpToSection(pendingSection)
+        }
+    }, [])
 
     useEffect(() => {
         const handleScroll = () => {
@@ -67,6 +81,7 @@ export default function Home() {
                 <Suspense fallback={<div style={{ height: '100vh', background: 'transparent' }} />}>
                     <About />
                     <Journey />
+                    <Experience />
                     <Skills />
                     <Projects />
                     <Certificates />

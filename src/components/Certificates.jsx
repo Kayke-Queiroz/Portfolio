@@ -1,8 +1,11 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion as Motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
 
-// --- DADOS MOCKADOS (Pode ser movido para arquivo separado depois) ---
+// --- DADOS DOS CERTIFICADOS ---
+import pmAcceleratorImg from "../assets/videos/certificates/pm_accelerator.png";
+import googleAiImg from "../assets/videos/certificates/google_ai.png";
+import googleDataImg from "../assets/videos/certificates/google_data_analytics.png";
 import gitJpg from "../assets/videos/certificates/git.jpg";
 import strapiJpg from "../assets/videos/certificates/strapi.jpg";
 import htmlCssJpg from "../assets/videos/certificates/htmlcss.jpg";
@@ -13,6 +16,36 @@ import nodeJpg from "../assets/videos/certificates/node.js.jpg";
 import native from "../assets/videos/certificates/native.jpg";
 
 const certificatesData = [
+    {
+        id: 9,
+        title: "Certified AI Engineer — AI PM Bootcamp",
+        issuer: "PM Accelerator",
+        duration: "Cohort 9 · 3 mos",
+        year: "2026",
+        category: "AI & Automation",
+        link: "https://app.kajabi.com/certificates/5a858249",
+        image: pmAcceleratorImg
+    },
+    {
+        id: 10,
+        title: "Google AI Professional Certificate",
+        issuer: "Google / Coursera",
+        duration: "7 Courses",
+        year: "2026",
+        category: "AI & Automation",
+        link: "https://www.coursera.org/account/accomplishments/specialization/83HTHKN6NW2D",
+        image: googleAiImg
+    },
+    {
+        id: 11,
+        title: "Google Data Analytics Professional Certificate",
+        issuer: "Google / Coursera",
+        duration: "9 Courses",
+        year: "2026",
+        category: "AI & Automation",
+        link: "https://www.coursera.org/account/accomplishments/specialization/R2VARVVQL2P1",
+        image: googleDataImg
+    },
     {
         id: 1,
         title: "Git e GitHub: Controle e compartilhe seu código",
@@ -135,7 +168,7 @@ export default function Certificates() {
     return (
         <section className="w-full max-w-6xl mx-auto px-4 py-8 mb-20">
             {/* Header Expansível */}
-            <motion.div
+            <Motion.div
                 onClick={() => setIsOpen(!isOpen)}
                 className="cursor-pointer group flex flex-col items-center justify-center mb-8"
             >
@@ -143,21 +176,21 @@ export default function Certificates() {
                     <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight drop-shadow-xl group-hover:text-cyan-400 transition-colors duration-300">
                         {t.certificates.title}
                     </h2>
-                    <motion.span
+                    <Motion.span
                         animate={{ rotate: isOpen ? 180 : 0 }}
                         transition={{ duration: 0.3 }}
                         className="text-3xl text-cyan-500"
                     >
                         ▼
-                    </motion.span>
+                    </Motion.span>
                 </div>
                 <div className={`w-36 h-1 bg-cyan-500 mt-4 rounded-full shadow-[0_0_10px_cyan] transition-all duration-300 ${isOpen ? 'w-48' : 'w-36'}`} />
-            </motion.div>
+            </Motion.div>
 
             {/* Conteúdo Expansível */}
             <AnimatePresence>
                 {isOpen && (
-                    <motion.div
+                    <Motion.div
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
@@ -184,17 +217,18 @@ export default function Certificates() {
                         </div>
 
                         {/* Grid de Certificados */}
-                        <motion.div
+                        <Motion.div
                             layout
                             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-4"
                         >
                             <AnimatePresence mode="popLayout">
                                 {currentCertificates.map((cert) => {
                                     const isFlipped = flippedId === cert.id;
+                                    const translatedCert = t.certificates.list?.find(c => c.id === cert.id);
 
                                     return (
-                                        <div key={cert.id} className="relative h-[250px] group perspective-1000">
-                                            <motion.div
+                                        <div key={cert.id} className="relative h-[285px] group perspective-1000">
+                                            <Motion.div
                                                 layout
                                                 initial={{ opacity: 0, scale: 0.9, rotateY: 0 }}
                                                 animate={{
@@ -219,7 +253,7 @@ export default function Certificates() {
                                                 >
                                                     {/* Detalhes Superiores */}
                                                     <div>
-                                                        <div className="flex justify-between items-start mb-4">
+                                                        <div className="flex justify-between items-start mb-3">
                                                             <span className={`
                                   text-xs font-bold px-2 py-1 rounded border
                                   ${cert.category === 'Front-end' ? 'border-blue-500/50 text-blue-400 bg-blue-500/10' :
@@ -232,14 +266,20 @@ export default function Certificates() {
                                                             <span className="text-gray-500 text-xs font-mono">{cert.year}</span>
                                                         </div>
 
-                                                        <h3 className="text-lg font-bold text-white mb-1 leading-snug group-hover:text-cyan-300 transition-colors">
-                                                            {t.certificates.list?.find(c => c.id === cert.id)?.title || cert.title}
+                                                        <h3 className="text-base md:text-lg font-bold text-white mb-1 leading-snug group-hover:text-cyan-300 transition-colors line-clamp-2">
+                                                            {translatedCert?.title || cert.title}
                                                         </h3>
-                                                        <p className="text-sm text-gray-400 mb-4">{cert.issuer}</p>
+                                                        <p className="text-xs font-mono text-cyan-400/80 mb-2">{cert.issuer}</p>
+
+                                                        {translatedCert?.description && (
+                                                            <p className="text-xs text-gray-300/85 leading-relaxed line-clamp-3">
+                                                                {translatedCert.description}
+                                                            </p>
+                                                        )}
                                                     </div>
 
                                                     {/* Detalhes Inferiores e Botão */}
-                                                    <div className="flex items-center justify-between mt-4 pt-4 border-t border-white/5">
+                                                    <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/5">
                                                         <span className="text-xs text-gray-500 flex items-center gap-1">
                                                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                                             {cert.duration}
@@ -268,8 +308,8 @@ export default function Certificates() {
                                                     <div className="flex-1 w-full relative overflow-hidden bg-black">
                                                         <img
                                                             src={cert.image}
-                                                            alt={`Certificate ${t.certificates.list?.find(c => c.id === cert.id)?.title || cert.title}`}
-                                                            className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500" // object-cover remove espaços brancos
+                                                            alt={`Certificate ${translatedCert?.title || cert.title}`}
+                                                            className="w-full h-full object-contain bg-slate-950 opacity-95 hover:opacity-100 transition-opacity duration-500"
                                                         />
 
                                                         {/* Overlay gradiente para legibilidade dos botões se necessário */}
@@ -304,12 +344,12 @@ export default function Certificates() {
                                                         </button>
                                                     </div>
                                                 </div>
-                                            </motion.div>
+                                            </Motion.div>
                                         </div>
                                     );
                                 })}
                             </AnimatePresence>
-                        </motion.div>
+                        </Motion.div>
 
                         {/* Paginação */}
                         {totalPages > 1 && (
@@ -389,7 +429,7 @@ export default function Certificates() {
                                 </span>
                             </a>
                         </div>
-                    </motion.div>
+                    </Motion.div>
                 )}
             </AnimatePresence>
         </section>
