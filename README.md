@@ -6,20 +6,18 @@ A modern, interactive personal portfolio web application built to showcase my so
 
 ## Preview
 
-### Hero Section & Auto-Play Animation
-![Hero Section](public/assets/port/port2.PNG)
-
-### Interactive Canvas Scrollytelling Sequence
-![Scrollytelling Animation](public/assets/port/port1.PNG)
-
-### Professional Experience Dossier
-![Professional Experience](public/assets/port/port3.PNG)
-
-### Interactive 3D Skills Sphere
-![Interactive 3D Skills Sphere](public/assets/port/port4.PNG)
-
-### Featured Projects (3D Flip Cards)
-![Featured Projects](public/assets/port/port5.PNG)
+<p align="center">
+  <img src="public/assets/port/port2.PNG" alt="Hero Section & Auto-Play Animation" width="275" />
+  <img src="public/assets/port/port1.PNG" alt="Interactive Canvas Scrollytelling Sequence" width="275" />
+  <img src="public/assets/port/port3.PNG" alt="Professional Experience Dossier" width="275" />
+</p>
+<p align="center">
+  <img src="public/assets/port/port4.PNG" alt="Interactive 3D Skills Sphere" width="275" />
+  <img src="public/assets/port/port5.PNG" alt="Featured Projects (3D Flip Cards)" width="275" />
+</p>
+<p align="center">
+  <sub>Click any screenshot to view in full resolution.</sub>
+</p>
 
 ---
 
