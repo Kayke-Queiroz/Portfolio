@@ -2,9 +2,24 @@
 
 A modern, interactive personal portfolio web application built to showcase my software engineering journey, professional experience in AI & Full-Stack development, interactive 3D skills visualization, featured projects, certifications, and bilingual resume.
 
-**Live Demo:** [kaykesantos.vercel.app](https://kaykesantos.vercel.app/)  
-**LinkedIn:** [linkedin.com/in/kaykequeiroz](https://www.linkedin.com/in/kaykequeiroz/)  
-**GitHub:** [github.com/Kayke-Queiroz](https://github.com/Kayke-Queiroz)
+---
+
+## Preview
+
+### Hero Section & Auto-Play Animation
+![Hero Section](public/assets/port/port2.PNG)
+
+### Interactive Canvas Scrollytelling Sequence
+![Scrollytelling Animation](public/assets/port/port1.PNG)
+
+### Professional Experience Dossier
+![Professional Experience](public/assets/port/port3.PNG)
+
+### Interactive 3D Skills Sphere
+![Interactive 3D Skills Sphere](public/assets/port/port4.PNG)
+
+### Featured Projects (3D Flip Cards)
+![Featured Projects](public/assets/port/port5.PNG)
 
 ---
 
@@ -12,11 +27,11 @@ A modern, interactive personal portfolio web application built to showcase my so
 
 | Layer | Technologies |
 | :--- | :--- |
-| **Core Framework** | [React 19](https://react.dev/), JavaScript (ES6+), [Vite 7](https://vite.dev/) (`@vitejs/plugin-react-swc`) |
-| **Styling** | [Tailwind CSS 3](https://tailwindcss.com/), PostCSS, Autoprefixer, Custom Design Tokens |
-| **Animations & 3D** | [Framer Motion 12](https://www.framer.com/motion/), HTML5 `<canvas>` (2D & Custom 3D Projection Math) |
-| **Routing & State** | [React Router DOM 7](https://reactrouter.com/), React Context API (`LanguageContext`, `ScrollContext`) |
-| **Contact & Deploy** | Web3Forms API, [Vercel](https://vercel.com/) |
+| **Core Framework** | React 19, JavaScript (ES6+), Vite 7 (`@vitejs/plugin-react-swc`) |
+| **Styling** | Tailwind CSS 3, PostCSS, Autoprefixer, Custom Design Tokens |
+| **Animations & 3D** | Framer Motion 12, HTML5 `<canvas>` (2D & Custom 3D Projection Math) |
+| **Routing & State** | React Router DOM 7, React Context API (`LanguageContext`, `ScrollContext`) |
+| **Contact & Deploy** | Web3Forms API, Vercel |
 | **Code Quality** | ESLint 9 (`@eslint/js`, `eslint-plugin-react-hooks`, `eslint-plugin-react-refresh`) |
 
 ---
@@ -51,6 +66,7 @@ Portfolio/
 ├── public/
 │   └── assets/
 │       ├── documents/               # Bilingual PDF resumes (PT A4 & EN US Letter)
+│       ├── port/                    # Portfolio UI showcase screenshots
 │       ├── projects/                # Project screenshots (WonderWord, ODSMonitor, SmartWeather, n8n, 3D Universe, etc.)
 │       ├── icone.jpg                # Hero avatar illustration
 │       └── kayke.jpeg               # About Me portrait photo
@@ -115,48 +131,3 @@ Portfolio/
    - 3D CSS layers (`perspective` and `transform-style: preserve-3d`) are activated only while a project card is flipping or flipped, preserving native 2D subpixel text clarity on hover.
 5. **Semantic Z-Index Layering (`tailwind.config.js`):**
    - All overlapping layers follow explicit tokens (`background: 0`, `content: 10`, `overlay: 30`, `hero: 40`, `nav: 50`, `hud: 60`) to prevent stacking conflicts across modals, particles, and fixed overlays.
-
----
-
-## Getting Started
-
-### Prerequisites
-- [Node.js](https://nodejs.org/) (v18+ recommended)
-- `npm`
-
-### Installation & Local Development
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/Kayke-Queiroz/Portfolio.git
-
-# 2. Navigate to the project folder
-cd Portfolio
-
-# 3. Install dependencies
-npm install
-
-# 4. Start the local development server
-npm run dev
-```
-
-The application will be available at `http://localhost:5173/`.
-
-### Available Scripts
-
-| Command | Description |
-| :--- | :--- |
-| `npm run dev` | Starts the Vite development server with Hot Module Replacement (HMR) |
-| `npm run build` | Builds the optimized production bundle into `dist/` |
-| `npm run preview` | Previews the production build locally |
-| `npm run lint` | Runs ESLint across the codebase |
-
----
-
-## Author
-
-**Kayke Queiroz dos Santos**  
-Software Engineering Student at IDP • AI Engineer & Full-Stack Developer  
-- LinkedIn: [linkedin.com/in/kaykequeiroz](https://www.linkedin.com/in/kaykequeiroz/)
-- GitHub: [github.com/Kayke-Queiroz](https://github.com/Kayke-Queiroz)
-- Email: `kayke7kk@gmail.com`
